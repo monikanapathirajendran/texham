@@ -1,6 +1,8 @@
 package com.texas.hamburger.repository;
 
 import com.texas.hamburger.model.Branches;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 

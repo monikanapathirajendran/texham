@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import lombok.NoArgsConstructor;
-
+import lombok.extern.log4j.Log4j2;
 
 import com.texas.hamburger.service.BranchesService;
 /*import com.texas.hamburger.service.DeleteMapping;
@@ -34,6 +34,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("api/branches")
 @NoArgsConstructor
+@Log4j2
 public class BranchesController {
 	
 	
@@ -46,6 +47,7 @@ public class BranchesController {
 
     @PostMapping("/addBranch")
     public Response<String> addBranch(@RequestBody BranchesDTO branches){
+    	log.info("Add Branch invoked");
         return branchesService.addBranch(branches) == Boolean.TRUE ?
                 Response.<String>builder()
                         .meta(ResponseMetadata.builder()
@@ -78,17 +80,20 @@ public class BranchesController {
 
 	/*
 	 * @DeleteMapping(value="/removeBranch/{b_name}/",produces = "application/json")
-	 * public Response<String> deleteBranchByName(@PathVariable String b_name){
+	 * public Response<String> deleteBranchByName(@PathVariable String b_name) {
 	 * return Response.<String>builder() .meta(ResponseMetadata.builder()
 	 * .statusCode(200) .statusMessage(StatusMessage.SUCCESS.name()).build())
 	 * .data((branchesService.deleteBranchByName(b_name))) .build(); }
-	 * 
-	 * @GetMapping(value="/getAll/{page}/{size}",produces = "application/json")
-	 * public Response<Map<String, Object>> getAllByPageSize(@PathVariable int
-	 * page, @PathVariable int size){ return Response.<Map<String, Object>>builder()
-	 * .meta(ResponseMetadata.builder() .statusCode(200)
-	 * .statusMessage(StatusMessage.SUCCESS.name()).build())
-	 * .data((branchesService.getAllByPageSize(page,size))) .build(); }
 	 */
+	  
+	  @GetMapping(value="/getAll/{page}/{size}",produces = "application/json")
+	  public Response<Map<String, Object>> getAllByPageSize(@PathVariable int
+	  page, @PathVariable int size){
+		  return Response.<Map<String, Object>>builder()
+	  .meta(ResponseMetadata.builder() .statusCode(200)
+	  .statusMessage(StatusMessage.SUCCESS.name()).build())
+	  .data((branchesService.getAllByPageSize(page,size))) .build(); 
+		  }
+	 
 
 }

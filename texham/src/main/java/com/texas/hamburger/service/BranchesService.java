@@ -67,21 +67,22 @@ public class BranchesService   {
 	 */
 
 
-	/*
-	 * public Map<String, Object> getAllByPageSize(int page, int size) { try {
-	 * List<Branches> branches = new ArrayList<Branches>(); Pageable paging =
-	 * PageRequest.of(page-1,size);
-	 * 
-	 * Page<Branches> branch = branchesRepository.findAll(paging); branches =
-	 * branch.getContent(); Map<String, Object> response = new HashMap<>();
-	 * 
-	 * response.put("Items", branches); response.put("currentPage",
-	 * branch.getNumber()+1); response.put("totalItems", branch.getTotalElements());
-	 * response.put("totalPages", branch.getTotalPages());
-	 * 
-	 * return response; } catch (Exception e) { throw new
-	 * BranchesServiceException("Branch Not Found", e); } }
-	 */
+	
+	  public Map<String, Object> getAllByPageSize(int page, int size) { 
+		  try {
+	  List<Branches> branches = new ArrayList<Branches>(); 
+	  Pageable paging =PageRequest.of(page-1,size);
+	  
+	  Page<Branches> branch = branchesRepository.findAll(paging); branches =
+	  branch.getContent(); Map<String, Object> response = new HashMap<>();
+	  
+	  response.put("Items", branches); response.put("currentPage",
+	  branch.getNumber()+1); response.put("totalItems", branch.getTotalElements());
+	  response.put("totalPages", branch.getTotalPages());
+	  
+	  return response; } catch (Exception e) { throw new
+	  BranchesServiceException("Branch Not Found", e); } }
+	 
  
 
 
