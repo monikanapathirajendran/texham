@@ -1,7 +1,6 @@
 package com.texas.hamburger.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import lombok.NoArgsConstructor;
 
@@ -68,7 +67,15 @@ public class OrdersController {
     }
     
 
-
+    @GetMapping(value="/getAll/{page}/{size}",produces = "application/json")
+	  public Response<Map<String, Object>> getAllByPageSize(@PathVariable int page, @PathVariable int size){
+		 
+	  return Response.<Map<String, Object>>builder()
+	  .meta(ResponseMetadata.builder() .statusCode(200)
+	  .statusMessage(StatusMessage.SUCCESS.name()).build())
+	  .data((ordersService.getAllByPageSize(page,size))) .build(); 
+		  }
+	 
 
 
 }

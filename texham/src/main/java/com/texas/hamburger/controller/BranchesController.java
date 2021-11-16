@@ -45,7 +45,7 @@ public class BranchesController {
         this.branchesService = branchesService;
     }
 
-    @PostMapping("/addBranch")
+    @PostMapping("/add")
     public Response<String> addBranch(@RequestBody BranchesDTO branches){
     	log.info("Add Branch invoked");
         return branchesService.addBranch(branches) == Boolean.TRUE ?
@@ -73,23 +73,11 @@ public class BranchesController {
                 .data((branchesService.getAllBranches()))
                 .build();
     }
-    
 
-
-
-
-	/*
-	 * @DeleteMapping(value="/removeBranch/{b_name}/",produces = "application/json")
-	 * public Response<String> deleteBranchByName(@PathVariable String b_name) {
-	 * return Response.<String>builder() .meta(ResponseMetadata.builder()
-	 * .statusCode(200) .statusMessage(StatusMessage.SUCCESS.name()).build())
-	 * .data((branchesService.deleteBranchByName(b_name))) .build(); }
-	 */
-	  
 	  @GetMapping(value="/getAll/{page}/{size}",produces = "application/json")
-	  public Response<Map<String, Object>> getAllByPageSize(@PathVariable int
-	  page, @PathVariable int size){
-		  return Response.<Map<String, Object>>builder()
+	  public Response<Map<String, Object>> getAllByPageSize(@PathVariable int page, @PathVariable int size){
+		 
+	  return Response.<Map<String, Object>>builder()
 	  .meta(ResponseMetadata.builder() .statusCode(200)
 	  .statusMessage(StatusMessage.SUCCESS.name()).build())
 	  .data((branchesService.getAllByPageSize(page,size))) .build(); 

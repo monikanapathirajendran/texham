@@ -3,8 +3,9 @@ package com.texas.hamburger.service;
 
 import lombok.NoArgsConstructor;
 
-
+import com.texas.hamburger.exception.BranchesServiceException;
 import com.texas.hamburger.exception.OrdersServiceException;
+import com.texas.hamburger.model.Branches;
 import com.texas.hamburger.model.Orders;
 import com.texas.hamburger.repository.OrdersRepository;
 
@@ -58,7 +59,20 @@ public class OrdersService   {
 	        }
 	    }
 	 	
-	
+    public Map<String, Object> getAllByPageSize(int page, int size) { 
+		  try {
+	  List<Orders> orders = new ArrayList<Orders>(); 
+	  Pageable paging =PageRequest.of(page-1,size);
+	  
+	  Page<Orders> order = ordersRepository.findAll(paging);
+	  orders =	  order.getContent(); Map<String, Object> response = new HashMap<>();
+	  
+	  response.put("Items", orders); response.put("currentPage",
+			  order.getNumber()+1); response.put("totalItems", order.getTotalElements());
+	  response.put("totalPages", order.getTotalPages());
+	  
+	  return response; } catch (Exception e) { throw new
+	  BranchesServiceException("Branch Not Found", e); } }
 
 
    
